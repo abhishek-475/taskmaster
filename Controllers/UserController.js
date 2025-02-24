@@ -39,14 +39,7 @@ exports.login = async (req, res) => {
 
 exports.getProfile = async (req, res) => {
     try {
-        // Selecting name, email, and password fields
-        const user = await User.findById(req.userId).select("name email password");
-        
-        // Checking if the user exists
-        if (!user) {
-            return res.status(404).json({ message: "User not found" });
-        }
-
+        const user = await User.findById(req.userId).select("name email password _id");
         res.json(user);
     } catch (error) {
         res.status(500).json({ message: "Error fetching profile" });
